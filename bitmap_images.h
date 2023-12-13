@@ -1,3 +1,4 @@
+//BMP images
 
 static const unsigned char PROGMEM bitmap[] =
 {

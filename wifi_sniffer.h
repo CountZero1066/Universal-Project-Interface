@@ -1,3 +1,4 @@
+//Wi-Fi functions
 
 #ifndef wifi_sniffer.h
 #define wifi_sniffer.h
@@ -42,5 +43,76 @@ void enter_promiscuous_mode()
   esp_wifi_set_promiscuous_rx_cb(&sniffer);
   esp_wifi_set_channel(curChannel, WIFI_SECOND_CHAN_NONE); 
 }
+//-------------------------------------------------------------------------------------------
+void List_nearby_APs(){
+  display1.setTextSize(1);
+      display1.setCursor(8,8);
+      display2.setCursor(5, 16);
+      display2.clearDisplay();
+            delay(10);
+            display1.clearDisplay();
+            display1.display();
+            delay(10);
+            
+            display2.println("searching...");
+            display2.display();
+            delay(10);
+      WiFi.mode(WIFI_STA);
+          int n = WiFi.scanNetworks();
+          if (n == 0) {
+            display2.println("No networks found.");
+            display2.display();
+          }
+          else{
+            display2.clearDisplay();
+            int y[] = { 4, 12, 20, 28, 36, 44, 52};
+            display2.println(String(n) + " networks found");
+            display2.display();
+            delay(10);
+            Add_text_to_scroll("", true);
+            for (int i = 0; i < n; ++i) {
+              display1.setCursor(4, y[i]);
+              Add_text_to_scroll("____________", false);
+              Add_text_to_scroll(WiFi.SSID(i), false);
+             Add_text_to_scroll(WiFi.BSSIDstr(i), false);
+            }
+            write_text_buffer_to_display();
+            WiFi.disconnect();
+            WiFi.mode(WIFI_OFF);
+          }
+}
+//-------------------------------------------------------------------------------------------
+void start_sniffing(){
+  display2.clearDisplay();
+      display2.println("Searching...");
+      
+      Add_text_to_scroll("Sniffer", true);
+      enter_promiscuous_mode();
+      int cycle = 0;
+      display2.display();
+       while (cycle < 1) 
+       {
 
+        if (curChannel > maxCh) 
+        {
+          curChannel = 1;
+          cycle++;
+        }
+    esp_wifi_set_channel(curChannel, WIFI_SECOND_CHAN_NONE);
+          delay(400);
+          curChannel++;
+          Serial.println("cycle =" + String(cycle));
+      }
+      display2.clearDisplay();
+      esp_wifi_set_promiscuous(false);
+      esp_wifi_stop();
+      WiFi.mode(WIFI_OFF);
+      write_text_buffer_to_display();
+      display2.setCursor(18, 12);
+      display2.println("Devices found:" + String(num_mac_add));
+      display2.display();
+}
+void loop() {
+ vTaskDelete(NULL);
+}
 #endif

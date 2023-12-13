@@ -1,3 +1,5 @@
+//GUI definitions used in conjunction with the Adafruit_GFX.h library
+
 const unsigned short int keyboard_key_coordinate_map[40][3] = {
   {0,4,2},{1,16,2},{2,28,2},{3,40,2},{4,52,2},{5,64,2},{6,76,2},{7,88,2},{8,100,2},{9,112,2},
   {10,4,14},{11,16,14},{12,28,14},{13,40,14},{14,52,14},{15,64,14},{16,76,14},{17,88,14},{18,100,14},{19,112,14},
@@ -38,6 +40,12 @@ const unsigned short int gui_x_cords[] = {
   4, 35, 66, 97
 };
 
+const unsigned short int scan_Wifi_cords[] = {
+  2,20,38, 8, 26, 44
+};
+const String Wifi_menu_txt[]{
+  "SCNR","SNFR","back"
+};
 const unsigned short int keyboard_x_cords[] = {
   4, 16, 28, 40, 52, 64, 76, 88, 100, 112
 };
