@@ -27,6 +27,7 @@ This pcb contained a number of design errors, first the enable pin of the TPS736
 
 The third prototype pcb was again designed in EasyEDA and manufactured by JLCPCB. This iteration addressed the design errors of the previous version, but unlike the previous version which used an ESP32 development board, this version uses an integrated ESP32 module with a USB to UART IC and voltage regulator. The QOP components are assembled by JCLPCB whereas the LEDs, 0603 resistors/capacitors, switches, TP4056, TPS73633DBVR, PCF8574P and MOLEX micro USB connectors are hand soldered.
 This prototype, unlike the previous two, has the interrupt pin of the PCF8574P connected to a GPIO pin of the ESP32 module.
+An issue arose during flashing the device once assembled, for proper boot mode configuration of the chosen ESP32 module, GPIO 12 needed to be pulled high. Without pulling GPIO 12 high, flashing the device resulted in a MD5 checksum error. This error was resolved by depressing any of the five tactile push buttons during the flashing process, on account of the PCF8574p's interrupt pin being connected to GPIO 12. 
 
 ![PCB 2D front v0 4gf](https://github.com/CountZero1066/Universal-Project-Interface/assets/32957102/db7896dc-02e6-4c13-94e7-f65703e29fdc)
 ![sch](https://github.com/CountZero1066/Universal-Project-Interface/assets/32957102/219fcd7b-4cd6-4e77-b125-9cc81552c333)
